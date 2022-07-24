@@ -1,0 +1,11 @@
+{
+    "execMap": {
+        "js": "node --harmony"
+    },
+
+    "ignore": [
+        "datastore",
+        ".git",
+        "node_modules"
+    ]
+}

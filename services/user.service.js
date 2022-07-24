@@ -5,17 +5,36 @@ const users = new  Datastore({
     autoload:true
 })
 
-users.loadDatabase((err) => console.log(err);)
+users.loadDatabase((err) => console.log(err))
 
-export function createUser(name, surname, username, password) {
+export function findUser( username, callback ) {
+    
+    users.findOne({ username }, (err, user) => {
+        callback(user)
+    } )
+
+}
+
+export function allUsers(callback) {
+    users.find({}, (err, users) => {
+        callback(users)
+    })
+    
+}
+
+
+
+export function createUser( name, surname, username, password ) {
     const doc = {
         name,
         surname,
         username,
         password
     }
-}
 
-users.insert(doc, (err, newDoc) => {
+
+
+users.insert( doc, (err, newDoc) => {
     console.log(err)
 })
+}

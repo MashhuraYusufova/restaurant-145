@@ -1,14 +1,30 @@
 import { Router } from 'express'
+import { createUser , findUser} from '../services/user.service.js'
+// import { findUser } from '../views/user.service.js'
 
 const router = Router()
 
 router.get('/register', (req, res) => {
-    res.render('register')
+    const { error } = req.query
+
+    res.render('register', { error }) 
 })
 
 router.post('/register', ( req, res) => {
-    console.log(req.body)
-    res.send('register is done')
+    const { name, surname, username, password } = req.body
+
+
+findUser(username, (user) => {
+    if (user) { 
+        res.redirect('/register?error=Usernameisalreadytaken!')
+    }
+    else {
+        createUser( name, surname, username, password )
+        res.redirect('/login')
+    }
+ })
+
 })
+
 
 export default router
